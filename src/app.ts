@@ -21,6 +21,6 @@ app.use(
 
 app.use('/images', express.static(path.join(__dirname, '..', 'assets', 'images')));
     
-app.use('/api/auth', authRoutes);
-
+app.use('/auth', authRoutes);
+app.use(express.json())
 export default app;
