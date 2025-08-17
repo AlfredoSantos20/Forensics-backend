@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { json } from 'body-parser';
 import authRoutes from './routes/auth.routes';
-
+import activityLogs  from './routes/activity-logs.routes';
 import cors from 'cors';
 import path from 'path';
 
@@ -20,7 +20,7 @@ app.use(
 );
 
 app.use('/images', express.static(path.join(__dirname, '..', 'assets', 'images')));
-    
+app.use('/api/logs/', activityLogs);
 app.use('/api/auth', authRoutes);
 
 export default app;
