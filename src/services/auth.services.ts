@@ -48,6 +48,7 @@ export const loginUser = async (identifier: string, password: string)  => {
   }
  
   return {
+    role: user.role,
     accessToken: generateAccessToken(user.id, user.role),
     refreshToken: generateRefreshToken(user.id)
   };

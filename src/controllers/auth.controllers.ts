@@ -11,11 +11,6 @@ import {
   generateRefreshToken,
   verifyRefreshToken,
 } from "../utils/token";
-import {
-  getCustomerById,
-
-  
-} from "../services/user.services";
 
 export const register = async (req: Request, res: Response) => {
   const { email, password, confirmPassword, role, username } = req.body;
@@ -82,11 +77,12 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   const { identifier, password } = req.body;
-  
+
   try {
-    const { accessToken, refreshToken } = await loginUser(identifier, password);
+    const { accessToken, refreshToken, role } = await loginUser(identifier, password);
 
     res.status(201).json({
+      role,
       accessToken,
       refreshToken,
     });
