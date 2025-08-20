@@ -24,7 +24,20 @@ model User {
   
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
- 
+  pcapUploads    Pcap[]
+}
+
+
+model Pcap {
+  id            Int      @id @default(autoincrement())
+  sha256        String   @unique
+  originalName  String
+  size          Int
+  summaryJson   Json
+  uploadedById  Int?
+  uploadedBy    User?    @relation(fields: [uploadedById], references: [id])
+  createdAt     DateTime @default(now())
+  @@index([uploadedById])
 }
 
 
