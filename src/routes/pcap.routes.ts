@@ -4,7 +4,7 @@ import {
   uploadPcapController,
   getPcapByShaController,
   listPcapsController,
-} from "../controllers/upload-pcap.services";
+} from "../controllers/upload-pcap.controllers";
 import { upload } from "../middlewares/upload.middleware";
 import { Roles } from "../middlewares/role.middleware";
 import { UserRole } from '@prisma/client';

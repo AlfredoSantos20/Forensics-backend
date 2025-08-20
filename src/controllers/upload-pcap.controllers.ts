@@ -13,7 +13,8 @@ export async function uploadPcapController(req: Request, res: Response) {
     validatePcapUpload(req.file);
 
     const uploadedById =(req as any).user?.id !== undefined ? Number((req as any).user.id) : undefined;
-
+    console.log("Uploaded by ID:", uploadedById);
+    
     const analysis = await analyzeAndStorePcap({
       filePath: req.file.path,
       originalName: req.file.originalname,
