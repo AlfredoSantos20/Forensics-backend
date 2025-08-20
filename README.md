@@ -2,7 +2,7 @@
 
 This is the official backend for the Network Forensic Analyzer Project, built with Express.js and TypeScript. It provides a secure and scalable authentication system using JWT and integrates with a database using Prisma ORM.
 
-- Once you clone it just install the dependencies with npm instal
+- Once you clone it, just install the dependencies with `npm install`
 
 ## 🚀 Features
 
@@ -24,11 +24,13 @@ This is the official backend for the Network Forensic Analyzer Project, built wi
 - **Argon2** (password security)
 - **Prisma + PostgreSQL**
 - **Dotenv** for environment configs
-- Wireshark / TShark (for PCAP parsing)
-
+- **Wireshark / TShark** (for PCAP parsing)
 
 ## To Use Wireshark
 
--install wireshark here: https://www.wireshark.org/download.html
--download the Windows x64 Installer if you're using windows
--once downloaded go to powershell and look for the location of tshark.axe and paste this command in powershell:& "C:\Program Files\Wireshark\tshark.exe" -v
+- Install Wireshark from here: [Wireshark Download](https://www.wireshark.org/download.html)
+- Download the Windows x64 Installer if you're using Windows.
+- Once downloaded, go to PowerShell and find the location of `tshark.exe`. Then paste this command in PowerShell:
+
+```powershell
+& "C:\Program Files\Wireshark\tshark.exe" -v

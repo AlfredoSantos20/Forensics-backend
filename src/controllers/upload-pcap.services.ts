@@ -6,14 +6,13 @@ import {
   validatePcapUpload,
 } from "../services/upload-pcap.services";
 
-/** POST /pcap/upload (multer middleware must set req.file) */
+
 export async function uploadPcapController(req: Request, res: Response) {
   try {
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
     validatePcapUpload(req.file);
 
-    const uploadedById =
-      (req as any).user?.id !== undefined ? Number((req as any).user.id) : undefined;
+    const uploadedById =(req as any).user?.id !== undefined ? Number((req as any).user.id) : undefined;
 
     const analysis = await analyzeAndStorePcap({
       filePath: req.file.path,
@@ -28,7 +27,7 @@ export async function uploadPcapController(req: Request, res: Response) {
   }
 }
 
-/** GET /pcap/:sha256 */
+
 export async function getPcapByShaController(req: Request, res: Response) {
   try {
     const { sha256 } = req.params;
