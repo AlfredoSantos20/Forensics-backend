@@ -24,5 +24,11 @@ This is the official backend for the Network Forensic Analyzer Project, built wi
 - **Argon2** (password security)
 - **Prisma + PostgreSQL**
 - **Dotenv** for environment configs
+- Wireshark / TShark (for PCAP parsing)
 
 
+## To Use Wireshark
+
+-install wireshark here: https://www.wireshark.org/download.html
+-download the Windows x64 Installer if you're using windows
+-once downloaded go to powershell and look for the location of tshark.axe and paste this command in powershell:& "C:\Program Files\Wireshark\tshark.exe" -v
