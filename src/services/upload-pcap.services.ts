@@ -1,3 +1,4 @@
+// src/services/upload-pcap.services.ts
 import { spawn } from "child_process";
 import { createHash } from "crypto";
 import { createReadStream, existsSync } from "fs";
@@ -216,9 +217,10 @@ export async function analyzeAndStorePcap(params: {
   filePath: string;
   originalName: string;
   uploadedById?: number;
+  uploadedFolderName?: string; // <<< NEW
   persist?: boolean; // default true
 }): Promise<PcapAnalysis> {
-  const { filePath, originalName, uploadedById, persist = true } = params;
+  const { filePath, originalName, uploadedById, uploadedFolderName, persist = true } = params;
 
   const stat = await fsp.stat(filePath);
   const size = stat.size;
@@ -247,6 +249,7 @@ export async function analyzeAndStorePcap(params: {
         size,
         summaryJson: result as any,
         uploadedById: uploadedById ?? undefined,
+        uploadedFolderName: uploadedFolderName ?? undefined, // <<< NEW
       },
       create: {
         sha256,
@@ -254,6 +257,7 @@ export async function analyzeAndStorePcap(params: {
         size,
         summaryJson: result as any,
         uploadedById: uploadedById ?? undefined,
+        uploadedFolderName: uploadedFolderName ?? "",         // <<< NEW
       },
     });
   }
@@ -275,10 +279,10 @@ export async function listPcaps(limit = 50, cursor?: { id: number }) {
       id: true,
       sha256: true,
       originalName: true,
+      uploadedFolderName: true, // <<< NEW
       size: true,
       uploadedById: true,
       createdAt: true,
-      
     },
   });
 }

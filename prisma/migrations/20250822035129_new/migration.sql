@@ -30,6 +30,7 @@ CREATE TABLE "Pcap" (
     "id" SERIAL NOT NULL,
     "sha256" TEXT NOT NULL,
     "originalName" TEXT NOT NULL,
+    "uploadedFolderName" TEXT NOT NULL,
     "size" INTEGER NOT NULL,
     "summaryJson" JSONB NOT NULL,
     "uploadedById" INTEGER,

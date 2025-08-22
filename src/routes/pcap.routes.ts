@@ -4,6 +4,7 @@ import {
   uploadPcapController,
   getPcapByShaController,
   listPcapsController,
+  getPcapFileByFolderNameController
 } from "../controllers/upload-pcap.controllers";
 import { upload } from "../middlewares/upload.middleware";
 import { Roles } from "../middlewares/role.middleware";
@@ -16,4 +17,5 @@ router.post("/upload", upload.single("pcap"), authenticateToken, uploadPcapContr
 router.get("/:sha256", getPcapByShaController as any);
 router.get("/list", listPcapsController as any);
 
+router.get("/file/:folderName",authenticateToken, getPcapFileByFolderNameController as any);
 export default router;
