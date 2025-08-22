@@ -3,7 +3,10 @@ import { Request, Response } from "express";
 import path from "path";
 import {
   analyzeAndStorePcap,
+  getLatestPcapFolder,
+  getOldestPcapFolder,
   getPcapBySha,
+  listPcapFolders,
   listPcaps,
   validatePcapUpload,
 } from "../services/upload-pcap.services";
@@ -95,5 +98,53 @@ export async function getPcapFileByFolderNameController(req: Request, res: Respo
     });
   } catch (err: any) {
     return res.status(400).json({ message: err.message || "Failed to fetch PCAP file" });
+  }
+}
+
+
+export async function getRecentPcapFoldersController(req: Request, res: Response) {
+  try {
+    const limit = Math.min(Math.max(Number(req.query.limit ?? 10), 1), 200);
+    const rows = await listPcapFolders({ limit, order: "desc" });
+    return res.json({ data: rows });
+  } catch (err: any) {
+    return res.status(400).json({ message: err.message || "Failed to fetch recent folders" });
+  }
+}
+
+
+export async function getOldPcapFoldersController(req: Request, res: Response) {
+  try {
+    const limit = Math.min(Math.max(Number(req.query.limit ?? 10), 1), 200);
+    const rows = await listPcapFolders({ limit, order: "asc" });
+    return res.json({ data: rows });
+  } catch (err: any) {
+    return res.status(400).json({ message: err.message || "Failed to fetch old folders" });
+  }
+}
+
+/** GET /pcap/folders/latest
+ *  Returns the single most recent folder record
+ */
+export async function getLatestPcapFolderController(req: Request, res: Response) {
+  try {
+    const rec = await getLatestPcapFolder();
+    if (!rec) return res.status(404).json({ message: "No PCAPs found" });
+    return res.json({ data: rec });
+  } catch (err: any) {
+    return res.status(400).json({ message: err.message || "Failed to fetch latest folder" });
+  }
+}
+
+/** GET /pcap/folders/oldest
+ *  Returns the single oldest folder record
+ */
+export async function getOldestPcapFolderController(req: Request, res: Response) {
+  try {
+    const rec = await getOldestPcapFolder();
+    if (!rec) return res.status(404).json({ message: "No PCAPs found" });
+    return res.json({ data: rec });
+  } catch (err: any) {
+    return res.status(400).json({ message: err.message || "Failed to fetch oldest folder" });
   }
 }

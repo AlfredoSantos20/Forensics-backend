@@ -286,3 +286,58 @@ export async function listPcaps(limit = 50, cursor?: { id: number }) {
     },
   });
 }
+
+
+export async function listPcapFolders(params?: {
+  limit?: number;
+  order?: "asc" | "desc"; // asc = oldest first, desc = newest first
+}) {
+  const limit = Math.min(Math.max(params?.limit ?? 10, 1), 200);
+  const order: "asc" | "desc" = params?.order ?? "desc";
+
+  return prisma.pcap.findMany({
+    take: limit,
+    orderBy: { createdAt: order },
+    select: {
+      id: true,
+      sha256: true,
+      uploadedFolderName: true,
+      originalName: true,
+      size: true,
+      uploadedById: true,
+      createdAt: true,
+    },
+  });
+}
+
+/** Single most recent folder (by createdAt desc) */
+export async function getLatestPcapFolder() {
+  return prisma.pcap.findFirst({
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      sha256: true,
+      uploadedFolderName: true,
+      originalName: true,
+      size: true,
+      uploadedById: true,
+      createdAt: true,
+    },
+  });
+}
+
+/** Single oldest folder (by createdAt asc) */
+export async function getOldestPcapFolder() {
+  return prisma.pcap.findFirst({
+    orderBy: { createdAt: "asc" },
+    select: {
+      id: true,
+      sha256: true,
+      uploadedFolderName: true,
+      originalName: true,
+      size: true,
+      uploadedById: true,
+      createdAt: true,
+    },
+  });
+}
